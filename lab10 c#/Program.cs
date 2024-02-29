@@ -11,8 +11,21 @@ namespace lab10
         /// Основная функция
         /// </summary>
         static void Main()
+
         {
-            LabFirstAndSecondPart();
+            MusicalInstrument m1 = new("   ", 10);
+            MusicalInstrument m2 = new("", 10);
+            MusicalInstrument m3 = new("   ", 10);
+            string? n = null;
+            MusicalInstrument m4 = new(n, 10);
+            MusicalInstrument m5 = new("Electric Guitar", 10);
+            m1.Show();
+            m2.Show();
+            m3.Show();
+            m4.Show();
+            m5.Show();
+
+            //LabFirstAndSecondPart();
             LabThirdPart();
         }
 
@@ -110,19 +123,22 @@ namespace lab10
             {
                 Console.WriteLine($"{arrInstruments[i]}");
             }
+
+            arrInstruments[2] = new Piano("Grand piano", 10, "Unknown", 1);
+            arrInstruments[3] = new Piano("Royale", 10, "Unknown", 1);
             Array.Sort(arrInstruments);
             Console.WriteLine("Массив отсортирован по имени.");
             for (int i = 0; i < arrInstruments.Length; i++)
             {
                 Console.WriteLine($"{arrInstruments[i]}");
             }
-            arrInstruments[1] = new Guitar();
             Console.WriteLine("Позиция первого в списке человека");
             Console.WriteLine("Нажмите любую клавишу, чтобы продолжить.");
 
-            arr[2] = new Piano("Piano", 10, "Unknown", 1);
-            int pos = Array.BinarySearch(arr, new Piano("Piano", 10, "Unknown", 1));
-            Console.WriteLine($"Позиция пианино ({new Piano("Piano", 10, "Unknown", 1)}): {pos}");
+            int pos = Array.BinarySearch(arrInstruments, new Piano("Royale", 10, "Unknown", 1));
+            int posA = Array.BinarySearch(arrInstruments, new Piano("Grand piano", 10, "Unknown", 1));
+            Console.WriteLine($"Позиция пианино ({new Piano("Royale", 10, "Unknown", 1)}): {pos}");
+            Console.WriteLine($"Позиция пианино ({new Piano("Grand piano", 10, "Unknown", 1)}): {posA}");
             Console.WriteLine();
             Console.WriteLine("Сортировка по id");
 
