@@ -67,10 +67,10 @@ namespace Musical_Instrument
             get => _Name;
             set
             {
-                if (value != null && value != "")
-                    _Name = value;
+                if (String.IsNullOrWhiteSpace(value))
+                    _Name = "NoName"; 
                 else
-                    _Name = "NoName";
+                    _Name = value;
             }
         }
 
