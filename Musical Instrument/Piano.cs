@@ -120,8 +120,8 @@ namespace Musical_Instrument
         public override bool Equals(object? obj)
         {
             if (obj == null) return false;
-            if (obj is Piano)
-                return this.Name == ((Piano)obj).Name && this.CountButtons == ((Piano)obj).CountButtons && this.TypeKeys == ((Piano)obj).TypeKeys;
+            if (obj is Piano && base.Equals(obj))
+                return this.CountButtons == ((Piano)obj).CountButtons && this.TypeKeys == ((Piano)obj).TypeKeys;
             return false;
         }
 

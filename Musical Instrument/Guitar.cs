@@ -91,8 +91,8 @@ namespace Musical_Instrument
         public override bool Equals(object? obj)
         {
             if (obj == null) return false;
-            if (obj is Guitar)
-                return this.Name == ((Guitar)obj).Name && this.CountString == ((Guitar)obj).CountString;
+            if (obj is Guitar && base.Equals(obj))
+                return this.CountString == ((Guitar)obj).CountString;
             return false;
         }
 
