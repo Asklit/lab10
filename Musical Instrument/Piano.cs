@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Musical_Instrument
 {
@@ -35,17 +36,17 @@ namespace Musical_Instrument
             get => _TypeKeys;
             set
             {
-                if (value is not null && value != "")
-                    _TypeKeys = value;
-                else
+                if (String.IsNullOrWhiteSpace(value))
                     _TypeKeys = "Unknown";
+                else
+                    _TypeKeys = value;
             }
         }
 
         /// <summary>
         /// Конструкторы без параметров
         /// </summary>
-        public Piano() : base("Piano", -1)
+        public Piano() : base()
         {
             CountButtons = 0;
             TypeKeys = "Unknown";
@@ -88,7 +89,7 @@ namespace Musical_Instrument
         {
             base.Init();
 
-            Console.WriteLine("Введите название инструмента:");
+            Console.WriteLine("Введите количество клавиш:");
             try
             {
                 CountButtons = int.Parse(Console.ReadLine());
@@ -108,9 +109,8 @@ namespace Musical_Instrument
         /// </summary>
         public override void RandomInit()
         {
-            Name = "Piano";
+            base.RandomInit();
             CountButtons = rand.Next(0, 100);
-            Id.Number = rand.Next(1, 100);
             TypeKeys = arrTypeKeys[rand.Next(0, arrTypeKeys.Length)];
         }
 
@@ -139,6 +139,14 @@ namespace Musical_Instrument
         public override object Clone()
         {
             return new Piano(Name, CountButtons, TypeKeys, Id.Number);
+        }
+
+        /// <summary>
+        /// Определение метода копирования элементов класса
+        /// </summary>
+        public override object ShallowCopy()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

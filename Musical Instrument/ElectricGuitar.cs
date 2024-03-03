@@ -21,17 +21,17 @@ namespace Musical_Instrument
             get => _EnetgySource;
             set
             {
-                if (value is string && value != "")
-                    _EnetgySource = value;
-                else
+                if (string.IsNullOrWhiteSpace(value))
                     _EnetgySource = "NoSource";
+                else
+                    _EnetgySource = value;
             }
         }
 
         /// <summary>
         /// Конструкторы без параметров
         /// </summary>
-        public ElectricGuitar() : base("ElectricGuitar", -1, -1) => EnergySource = "NoSource";
+        public ElectricGuitar() : base() => EnergySource = "NoSource";
 
         /// <summary>
         /// Конструктор с параметрами
@@ -64,20 +64,9 @@ namespace Musical_Instrument
         /// </summary>
         public override void Init()
         {
-            Console.WriteLine("Введите название инструмента:");
-            Name = Console.ReadLine();
-
-            Console.WriteLine("Введите название инструмента:");
-            try
-            {
-                CountString = int.Parse(Console.ReadLine());
-            }
-            catch
-            {
-                CountString = -1;
-            }
-
+            base.Init();
             Console.WriteLine("Введите источник питания клавиатуры:");
+
             EnergySource = Console.ReadLine();
         }
 
@@ -87,8 +76,7 @@ namespace Musical_Instrument
         /// </summary>
         public override void RandomInit()
         {
-            Name = "ElectricGuitar";
-            CountString = rand.Next(0, 100);
+            base.RandomInit();
             EnergySource = arrSource[rand.Next(0, arrSource.Length)];
         }
         
@@ -117,6 +105,14 @@ namespace Musical_Instrument
         public override object Clone()
         {
             return new ElectricGuitar(Name, CountString, EnergySource, Id.Number);
+        }
+
+        /// <summary>
+        /// Определение метода копирования элементов класса
+        /// </summary>
+        public override object ShallowCopy()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

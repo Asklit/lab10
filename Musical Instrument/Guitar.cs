@@ -28,7 +28,7 @@ namespace Musical_Instrument
         /// <summary>
         /// Конструкторы без параметров
         /// </summary>
-        public Guitar() : base("Guitar", -1) => CountString = 0;
+        public Guitar() : base() => CountString = 0;
 
 
         /// <summary>
@@ -81,8 +81,7 @@ namespace Musical_Instrument
         /// </summary>
         public override void RandomInit()
         {
-            Name = "Guitar";
-            Id.Number = rand.Next(1, 100);
+            base.RandomInit();
             CountString = rand.Next(0, 10);
         }
 
@@ -111,6 +110,15 @@ namespace Musical_Instrument
         public override object Clone()
         {
             return new Guitar(Name, CountString, Id.Number);
+        }
+
+
+        /// <summary>
+        /// Определение метода копирования элементов класса
+        /// </summary>
+        public override object ShallowCopy()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

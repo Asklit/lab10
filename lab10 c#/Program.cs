@@ -25,7 +25,7 @@ namespace lab10
             m4.Show();
             m5.Show();
 
-            //LabFirstAndSecondPart();
+            LabFirstAndSecondPart();
             LabThirdPart();
         }
 
@@ -77,7 +77,12 @@ namespace lab10
             Console.WriteLine();
             Console.WriteLine("Сравнение на принадлежность классу Guitar с помощью typeof:");
             ElectricGuitars(arrInstruments);
+            Console.WriteLine();
+            Console.WriteLine("Получение объектов всех электрических гитар с типом питания USB:");
+            foreach (var i in GetAllGuitarsWithUSB(arrInstruments))
+                i.ShowVirtualMethod();
         }
+
         /// <summary>
         /// 3я часть лабораторной работы
         /// </summary>
@@ -165,9 +170,18 @@ namespace lab10
             Console.WriteLine($"Исходный элемент {mi}");
             MusicalInstrument copy = (MusicalInstrument)mi.ShallowCopy();
             MusicalInstrument clone = (MusicalInstrument)mi.Clone();
-            Console.WriteLine($"Копия: {copy}. Исходный: {mi}. Клон {clone}");
+            Console.WriteLine($"Копия: {copy}. Клон {clone}");
             mi.Id.Number = 101;
-            Console.WriteLine($"Копия: {copy}. Исходный: {mi}. Клон {clone}");
+            Console.WriteLine($"Копия: {copy}. Клон {clone}");
+
+            Guitar guitar2 = new Guitar();
+            guitar2.RandomInit();
+            Console.WriteLine($"Исходный элемент {guitar2}");
+            MusicalInstrument guitarCopy = (MusicalInstrument)guitar2.ShallowCopy();
+            MusicalInstrument guitarClone = (MusicalInstrument)guitar2.Clone();
+            Console.WriteLine($"Копия: {guitarCopy}. Клон {guitarClone}");
+            guitar2.Id.Number = 101;
+            Console.WriteLine($"Копия: {guitarCopy}. Клон {guitarClone}");
         }
         /// <summary>
         /// Получить пианино с максимальным количеством клавиш
@@ -217,6 +231,36 @@ namespace lab10
                     item.ShowVirtualMethod();
                 }
             }
+        }
+
+        static MusicalInstrument[] GetAllGuitarsWithUSB(MusicalInstrument[] mi)
+        {
+            int len = 0;
+            foreach (var item in mi)
+            {
+                ElectricGuitar? guitar = item as ElectricGuitar;
+                if (guitar != null)
+                {
+                    if (guitar.EnergySource == "USB")
+                        len++;
+                }
+            }
+
+            MusicalInstrument[] resArr = new MusicalInstrument[len];
+            int index = 0;
+            foreach (var item in mi)
+            {
+                ElectricGuitar? guitar = item as ElectricGuitar;
+                if (guitar != null)
+                {
+                    if (guitar.EnergySource == "USB")
+                    {
+                        resArr[index] = guitar;
+                        index++;
+                    }
+                }
+            }
+            return resArr;
         }
     }
 }
