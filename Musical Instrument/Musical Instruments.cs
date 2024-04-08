@@ -143,7 +143,7 @@ namespace Musical_Instrument
         public virtual void RandomInit()
         {
             Name = arrNames[rand.Next(0, arrNames.Length)];
-            Id.Number = rand.Next(1, 100);
+            Id.Number = rand.Next(1, 10000);
         }
 
         /// <summary>
